@@ -1,3 +1,5 @@
+# Wallcollage
+
 Pick randomly pictures from a directory path and join them to a 2560x1440 collage
 
 # Installation
