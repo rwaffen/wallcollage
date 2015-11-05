@@ -4,6 +4,11 @@ Pick randomly pictures from a directory path and join them to a 2560x1440 collag
 
 # Installation
 
+## Mac OS X
+
+    brew install imagemagick
+    brew install ghostscript
+    gem install bundler
     bundle install --path vendor/gems
 
 # Usage
@@ -11,6 +16,7 @@ Pick randomly pictures from a directory path and join them to a 2560x1440 collag
     Usage: wallcollage2.rb [-qp]
         -q, --quantity                   quantity to include in the collage.
         -p, --path                       The path to the picture folder.
+
 
     bundle exec ruby wallcollage2.rb -q 10 -p /Users/Rob/Dropbox/Bilder/dump/2015
 
