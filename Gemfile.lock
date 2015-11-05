@@ -1,13 +1,15 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    mini_magick (4.3.6)
+    choice (0.2.0)
+    rmagick (2.15.4)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  mini_magick
+  choice
+  rmagick
 
 BUNDLED WITH
    1.10.6

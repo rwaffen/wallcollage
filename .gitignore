@@ -1,4 +1,5 @@
-.DS_Store
-.bundle/
+.idea/
 out/
 vendor/
+.bundle/
+.DS_Store
