@@ -6,41 +6,54 @@ Choice.options do
   header ''
   header 'Specific options:'
 
-  option :quantity, :required => true do
-    short '-q'
-    long '--quantity'
-    desc 'quantity to include in the collage.'
-  end
-
   option :path, :required => true do
     short '-p'
-    long '--path'
+    long '--path=PATH'
     desc 'The path to the picture folder.'
   end
 
   separator ''
   separator 'Common options: '
 
+  option :quantity, :required => false do
+    short '-q'
+    long '--quantity=QUANTITY'
+    desc 'The quantity of pictures to include in the collage.'
+    cast Integer
+    default 10
+  end
+
   option :width, :required => false do
     short '-w'
-    long '--width'
+    long '--width=WIDTH'
     desc 'The width of the collage. Defaults to 2560.'
+    cast Integer
     default 2560
   end
 
   option :height, :required => false do
     short '-h'
-    long '--height'
+    long '--height=HEIGHT'
     desc 'The height of the collage. Defaults to 1440.'
+    cast Integer
     default 1440
+  end
+
+  option :name, :required => false do
+    short '-n'
+    long '--name=NAME'
+    desc 'The name and path for output file'
+  end
+
+  option :debug, :required => false do
+    short '-d'
+    long '--debug'
+    desc 'Activate to get some debug information.'
   end
 end
 
-output_dir= 'out/'
-Dir.mkdir(output_dir) unless File.exists?(output_dir)
-
 def get_rnd_files(path, quantity)
-  list = Dir[path + '/*.jpg']
+  list = Dir[path + '/*.j*g']
   list += Dir[path + '/*.png']
   list.sample(quantity)
 end
@@ -64,7 +77,9 @@ def get_opts(quantity, multiplier, max_width, max_height)
   }
 end
 
-def create_collage(path, quantity, max_width, max_height)
+def create_collage(path, quantity, max_width, max_height, file_name)
+
+  #opts = get_opts 10, 2, 2560, 1440
 
   case quantity
     when 2..7, 9
@@ -89,18 +104,28 @@ def create_collage(path, quantity, max_width, max_height)
   list = Magick::ImageList.new(*get_rnd_files(path, quantity))
   output_list = resize_images(list, opts[:width], opts[:height])
 
+  pp output_list if Choice[:debug]
+
   collage = output_list.montage do |mont|
-    #mont.geometry = "#{opts[:width]}x#{opts[:height]}"
     mont.geometry = "#{opts[:width]}x#{opts[:height]}+1+1"
     mont.tile = opts[:tile]
   end
 
-  collage.write(Dir.pwd + "/out/#{quantity}_#{SecureRandom.hex}.jpg")
+  if file_name
+    collage.write(file_name)
+  else
+    output_dir= 'out'
+    Dir.mkdir(output_dir) unless File.exists?(output_dir)
+    collage.write(Dir.pwd + "/#{output_dir}/#{quantity}_#{SecureRandom.hex}.jpg")
+  end
 end
+
+pp Choice.choices if Choice[:debug]
 
 create_collage(
     Choice[:path],
-    Choice[:quantity].to_i,
-    Choice[:width].to_i,
-    Choice[:height].to_i
+    Choice[:quantity],
+    Choice[:width],
+    Choice[:height],
+    Choice[:name]
 )
