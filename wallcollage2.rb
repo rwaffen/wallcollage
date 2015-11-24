@@ -6,14 +6,18 @@
 =end
 
 require_relative 'lib/Bootstrap'
-@logger = RobLog.new.get_logger('Main')
 
 pp Choice.choices if Choice[:debug]
 
-Wallcollage.new.create_collage(
-    Choice[:path],
-    Choice[:quantity],
-    Choice[:width],
-    Choice[:height],
-    Choice[:name]
-)
+if Choice.choices.spcl24
+  img = Imager.new
+  img.create_blank_24
+else
+    Wallcollage.new.create_collage(
+        Choice[:path],
+        Choice[:quantity],
+        Choice[:width],
+        Choice[:height],
+        Choice[:name]
+    )
+end

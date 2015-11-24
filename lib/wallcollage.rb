@@ -17,11 +17,15 @@ class Wallcollage
   def get_opts(quantity, multiplier, max_width, max_height)
     #max_width = max_width - ((quantity / multiplier) * 2)
     #max_height = max_height - (multiplier * 2)
-    {
+    hash = {
         :width => max_width / (quantity / multiplier),
         :height => max_height / multiplier,
         :tile => "#{quantity / multiplier}x#{multiplier}",
     }
+    if Choice[:debug]
+      pp "tile info: #{hash.to_s}"
+    end
+    hash
   end
 
   def create_collage(path, quantity, max_width, max_height, file_name)

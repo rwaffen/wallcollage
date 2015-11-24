@@ -9,9 +9,13 @@ require 'rubygems'
 require 'bundler'
 Bundler.require(:default)
 
+include Magick
+
 # project dependencies
 require_relative 'RobLog'
 require_relative 'wallcollage'
+require_relative 'Imager'
+
 # testing
 require 'pp'
 

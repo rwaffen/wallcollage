@@ -52,4 +52,9 @@ Choice.options do
     long '--debug'
     desc 'Activate to get some debug information.'
   end
+
+  option :spcl24, :required => false do
+    long '--spcl24'
+    desc 'Magick with a hole...'
+  end
 end
