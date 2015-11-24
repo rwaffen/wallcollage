@@ -2,6 +2,11 @@ GEM
   remote: https://rubygems.org/
   specs:
     choice (0.2.0)
+    little-plugger (1.1.4)
+    logging (2.0.0)
+      little-plugger (~> 1.1)
+      multi_json (~> 1.10)
+    multi_json (1.11.2)
     rmagick (2.15.4)
 
 PLATFORMS
@@ -9,6 +14,7 @@ PLATFORMS
 
 DEPENDENCIES
   choice
+  logging
   rmagick
 
 BUNDLED WITH
