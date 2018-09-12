@@ -68,6 +68,7 @@ class Wallcollage
       output_dir= 'out'
       Dir.mkdir(output_dir) unless File.exists?(output_dir)
       collage.write(Dir.pwd + "/#{output_dir}/#{quantity}_#{SecureRandom.hex}.jpg")
+      puts "created ... #{quantity}_#{SecureRandom.hex}.jpg"
     end
   end
 end

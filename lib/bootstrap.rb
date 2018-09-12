@@ -6,13 +6,13 @@ Loading all the dependencies. Using bundler for gems (see Gemfile).
 
 # gem dependencies
 require 'rubygems'
+require 'securerandom'
 require 'bundler'
 Bundler.require(:default)
 
 include Magick
 
 # project dependencies
-require_relative 'RobLog'
 require_relative 'wallcollage'
 require_relative 'Imager'
 

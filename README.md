@@ -16,6 +16,11 @@ Pick randomly pictures from a directory path and join them to a 2560x1440 collag
 
     bundle install --path vendor/gems
 
+### if rmagic wont compile
+
+    brew unlink imagemagick
+    brew install imagemagick@6 && brew link imagemagick@6 --force
+
 # Usage
 
 ## Command parameters
@@ -27,15 +32,15 @@ Pick randomly pictures from a directory path and join them to a 2560x1440 collag
 ## Example usage
 
     bundle exec ruby wallcollage2.rb -p /Users/Rob/Pictures/dump/ -q 19
-    
+
     bundle exec ruby wallcollage2.rb -p /Users/Rob/Pictures/dump/ -q 55
-    
+
     bundle exec ruby wallcollage2.rb -p /Users/Rob/Pictures/dump/ -q 5
-    
+
     bundle exec ruby wallcollage2.rb -p /Users/Rob/Pictures/dump/ -q 22
 
 The images will be resize to fill a sub-resolution of the whole collage.
-This will conclude in a collage of 2560x1440. 
+This will conclude in a collage of 2560x1440.
 Pick the images from the out/ directory
 
 # Supported Units
