@@ -30,27 +30,25 @@ class Wallcollage
 
   def create_collage(path, quantity, max_width, max_height, file_name)
 
-    #opts = get_opts 10, 2, 2560, 1440
-
-    case quantity
-      when 2..7, 9
-        opts = get_opts quantity, 1, max_width, max_height
-      when 8, 10, 12, 14, 16, 20, 22
-        opts = get_opts quantity, 2, max_width, max_height
-      when 15, 18, 21, 24, 27, 30, 33, 39, 42, 51
-        opts = get_opts quantity, 3, max_width, max_height
-      when 24, 28, 32, 36, 40, 44, 48, 52
-        opts = get_opts quantity, 4, max_width, max_height
-      when 25, 35, 45, 50, 55
-        opts = get_opts quantity, 5, max_width, max_height
-      when 54
-        opts = get_opts quantity, 6, max_width, max_height
-      when 49
-        opts = get_opts quantity, 7, max_width, max_height
-      else
-        puts 'not supported quantity'
-        exit 1
+    if ( quantity < 10 )
+      opts = get_opts quantity, 1, max_width, max_height
     end
+
+    if ( quantity.between?(10,54) && quantity % 2 == 0 )
+      if quantity < 23
+        opts = get_opts quantity, 2, max_width, max_height
+      elsif quantity < 55
+        opts = get_opts quantity, 4, max_width, max_height
+      end
+    end
+
+    if ( quantity.between?(13,40) && quantity % 3 == 0 )
+      opts = get_opts quantity, 3, max_width, max_height
+    end
+
+    # if ( quantity.between?(25,55) && quantity % 5 == 0 )
+    #   opts = get_opts quantity, 5, max_width, max_height
+    # end
 
     list = Magick::ImageList.new(*get_rnd_files(path, quantity))
     output_list = resize_images(list, opts[:width], opts[:height])
@@ -65,10 +63,11 @@ class Wallcollage
     if file_name
       collage.write(file_name)
     else
-      output_dir= 'out'
+      output_dir = 'out'
+      file_name  = "#{quantity}_#{SecureRandom.hex}"
       Dir.mkdir(output_dir) unless File.exists?(output_dir)
-      collage.write(Dir.pwd + "/#{output_dir}/#{quantity}_#{SecureRandom.hex}.jpg")
-      puts "created ... #{quantity}_#{SecureRandom.hex}.jpg"
+      collage.write(Dir.pwd + "/#{output_dir}/#{file_name}.jpg")
+      puts "created ... #{Dir.pwd}/#{output_dir}/#{file_name}.jpg"
     end
   end
 end
