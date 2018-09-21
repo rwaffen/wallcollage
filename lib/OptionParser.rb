@@ -41,6 +41,12 @@ Choice.options do
     default 1440
   end
 
+  option :resolution, :required => false do
+    short '-r'
+    long '--resolution=RESOLUTION'
+    desc 'Preset of resolutions'
+  end
+
   option :name, :required => false do
     short '-n'
     long '--name=NAME'
@@ -51,10 +57,5 @@ Choice.options do
     short '-d'
     long '--debug'
     desc 'Activate to get some debug information.'
-  end
-
-  option :spcl24, :required => false do
-    long '--spcl24'
-    desc 'Magick with a hole...'
   end
 end

@@ -1,6 +1,6 @@
 class Wallcollage
   def get_rnd_files(path, quantity)
-    list = Dir[path + '/*.j*g']
+    list  = Dir[path + '/*.j*g']
     list += Dir[path + '/*.png']
     list.sample(quantity)
   end
@@ -9,54 +9,77 @@ class Wallcollage
     tmp_list = Magick::ImageList.new
     image_list.each do |image|
       tmp_image = image.resize_to_fill(width, height, gravity)
+      pp tmp_image if Choice[:debug]
       tmp_list << tmp_image
     end
-    tmp_list
+    return tmp_list
   end
 
   def get_opts(quantity, multiplier, max_width, max_height)
-    #max_width = max_width - ((quantity / multiplier) * 2)
-    #max_height = max_height - (multiplier * 2)
     hash = {
         :width => max_width / (quantity / multiplier),
         :height => max_height / multiplier,
         :tile => "#{quantity / multiplier}x#{multiplier}",
     }
-    if Choice[:debug]
-      pp "tile info: #{hash.to_s}"
-    end
-    hash
+
+    puts "tile info: #{hash.to_s}" if Choice[:debug]
+
+    return hash
   end
 
-  def create_collage(path, quantity, max_width, max_height, file_name)
-
+  def eval_quantity(quantity)
     if ( quantity < 10 )
-      opts = get_opts quantity, 1, max_width, max_height
-    end
+      rows = 1
+    else
+      if Prime.prime?(quantity)
+        puts "quantity: #{quantity}, can't be prime"
+        exit 1
+      end
 
-    if ( quantity.between?(10,54) && quantity % 2 == 0 )
-      if quantity < 23
-        opts = get_opts quantity, 2, max_width, max_height
-      elsif quantity < 55
-        opts = get_opts quantity, 4, max_width, max_height
+      if ( quantity.between?(10,16) && quantity % 2 == 0 )
+        rows = 2
+      end
+
+      if ( quantity.between?(20,41) && quantity % 4 == 0 )
+        rows = 4
+      else
+        puts "quantity: #{quantity}, can't be divided by 4" if Choice[:debug]
+      end
+
+      if ( quantity.between?(13,33) && quantity % 3 == 0 )
+        rows = 3
+      else
+        puts "quantity: #{quantity}, can't be divided by 3" if Choice[:debug]
+      end
+
+      if ( quantity.between?(41,55) && quantity % 5 == 0 )
+        rows = 5
+      else
+        puts "quantity: #{quantity}, can't be divided by 5" if Choice[:debug]
+      end
+
+      if ( quantity.between?(41,60) && quantity % 6 == 0 )
+        rows = 6
+      else
+        puts "quantity: #{quantity}, can't be divided by 6" if Choice[:debug]
       end
     end
 
-    if ( quantity.between?(13,40) && quantity % 3 == 0 )
-      opts = get_opts quantity, 3, max_width, max_height
+    if rows.nil?
+      puts "quantity: #{quantity}, doesn't fit into rows"
+      exit 1
+    else
+      return rows
     end
+  end
 
-    # if ( quantity.between?(25,55) && quantity % 5 == 0 )
-    #   opts = get_opts quantity, 5, max_width, max_height
-    # end
-
+  def create_collage(path, quantity, max_width, max_height, file_name)
+    opts = get_opts(quantity, eval_quantity(quantity), max_width, max_height)
     list = Magick::ImageList.new(*get_rnd_files(path, quantity))
     output_list = resize_images(list, opts[:width], opts[:height])
 
-    pp output_list if Choice[:debug]
-
     collage = output_list.montage do |mont|
-      mont.geometry = "#{opts[:width]}x#{opts[:height]}+1+1"
+      mont.geometry = "#{opts[:width] - 2}x#{opts[:height] - 2}+1+1"
       mont.tile = opts[:tile]
     end
 

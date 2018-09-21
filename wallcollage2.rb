@@ -9,15 +9,24 @@ require_relative 'lib/Bootstrap'
 
 pp Choice.choices if Choice[:debug]
 
-if Choice.choices.spcl24
-  img = Imager.new
-  img.create_blank_24
+if Choice[:resolution]
+  case Choice[:resolution]
+  when '4k'
+    width  = 3840
+    height = 2660
+  end
 else
-    Wallcollage.new.create_collage(
-        Choice[:path],
-        Choice[:quantity],
-        Choice[:width],
-        Choice[:height],
-        Choice[:name]
-    )
+  width  = Choice[:width]
+  height = Choice[:height]
 end
+
+puts "using  width: #{width}"  if Choice[:debug]
+puts "using height: #{height}" if Choice[:debug]
+
+Wallcollage.new.create_collage(
+    Choice[:path],
+    Choice[:quantity],
+    width,
+    height,
+    Choice[:name]
+)
