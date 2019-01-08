@@ -14,6 +14,10 @@ if Choice[:resolution]
   when '4k'
     width  = 3840
     height = 2660
+  when 'mbp'
+    # make it a little bit smaller, to have the borders on display
+    width  = 2559
+    height = 1599
   end
 else
   width  = Choice[:width]

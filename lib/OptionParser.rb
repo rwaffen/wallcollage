@@ -44,7 +44,7 @@ Choice.options do
   option :resolution, :required => false do
     short '-r'
     long '--resolution=RESOLUTION'
-    desc 'Preset of resolutions'
+    desc 'Preset of resolutions.'
   end
 
   option :name, :required => false do

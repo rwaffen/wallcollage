@@ -26,18 +26,25 @@ Pick randomly pictures from a directory path and join them to a 2560x1440 collag
 ## Command parameters
 
     Usage: wallcollage2.rb [-qp]
-        -q, --quantity                   quantity to include in the collage.
-        -p, --path                       The path to the picture folder.
+        -q, --quantity    # The quantity to include in the collage.
+        -p, --path        # The path to the picture folder.
+        -w, --width       # The width of the collage. Defaults to 2560.
+        -h, --height      # The height of the collage. Defaults to 1440.
+        -r, --resolution  # Preset of resolutions.
+        -n, --name        # The name and path for output file.
+        -d, --debug       # Activate to get some debug information.
+
+The path cannot inlcude spaces in folder names!
 
 ## Example usage
 
     bundle exec ruby wallcollage2.rb -p /Users/Rob/Pictures/dump/ -q 19
 
-    bundle exec ruby wallcollage2.rb -p /Users/Rob/Pictures/dump/ -q 55
+    bundle exec ruby wallcollage2.rb -p /Users/Rob/Pictures/dump/ -q 10 -r 4k
 
-    bundle exec ruby wallcollage2.rb -p /Users/Rob/Pictures/dump/ -q 5
+    bundle exec ruby wallcollage2.rb -p /Users/Rob/Pictures/dump/ -q 10 -r mbp -d
 
-    bundle exec ruby wallcollage2.rb -p /Users/Rob/Pictures/dump/ -q 22
+    bundle exec ruby wallcollage2.rb -p /Users/Rob/Pictures/dump/ -q 10 -w 1024 -h 768
 
 The images will be resize to fill a sub-resolution of the whole collage.
 This will conclude in a collage of 2560x1440.
