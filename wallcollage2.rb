@@ -13,7 +13,7 @@ if Choice[:resolution]
   case Choice[:resolution]
   when '4k'
     width  = 3840
-    height = 2660
+    height = 2160
   when 'mbp'
     # make it a little bit smaller, to have the borders on display
     width  = 2559
