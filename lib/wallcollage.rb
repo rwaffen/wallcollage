@@ -40,16 +40,16 @@ class Wallcollage
         rows = 2
       end
 
-      if ( quantity.between?(20,41) && quantity % 4 == 0 )
-        rows = 4
-      else
-        puts "quantity: #{quantity}, can't be divided by 4" if Choice[:debug]
-      end
-
       if ( quantity.between?(13,33) && quantity % 3 == 0 )
         rows = 3
       else
         puts "quantity: #{quantity}, can't be divided by 3" if Choice[:debug]
+      end
+
+      if ( quantity.between?(20,41) && quantity % 4 == 0 )
+        rows = 4
+      else
+        puts "quantity: #{quantity}, can't be divided by 4" if Choice[:debug]
       end
 
       if ( quantity.between?(41,55) && quantity % 5 == 0 )
@@ -58,7 +58,7 @@ class Wallcollage
         puts "quantity: #{quantity}, can't be divided by 5" if Choice[:debug]
       end
 
-      if ( quantity.between?(41,60) && quantity % 6 == 0 )
+      if ( quantity.between?(41,100) && quantity % 6 == 0 )
         rows = 6
       else
         puts "quantity: #{quantity}, can't be divided by 6" if Choice[:debug]
