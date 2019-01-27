@@ -28,41 +28,26 @@ class Wallcollage
   end
 
   def eval_quantity(quantity)
-    if ( quantity < 10 )
-      rows = 1
-    else
-      if Prime.prime?(quantity)
+    if Prime.prime?(quantity)
+      unless quantity < 6
         puts "quantity: #{quantity}, can't be prime"
         exit 1
       end
+    end
 
-      if ( quantity.between?(10,16) && quantity % 2 == 0 )
-        rows = 2
-      end
-
-      if ( quantity.between?(13,33) && quantity % 3 == 0 )
-        rows = 3
-      else
-        puts "quantity: #{quantity}, can't be divided by 3" if Choice[:debug]
-      end
-
-      if ( quantity.between?(20,41) && quantity % 4 == 0 )
-        rows = 4
-      else
-        puts "quantity: #{quantity}, can't be divided by 4" if Choice[:debug]
-      end
-
-      if ( quantity.between?(41,55) && quantity % 5 == 0 )
-        rows = 5
-      else
-        puts "quantity: #{quantity}, can't be divided by 5" if Choice[:debug]
-      end
-
-      if ( quantity.between?(41,100) && quantity % 6 == 0 )
-        rows = 6
-      else
-        puts "quantity: #{quantity}, can't be divided by 6" if Choice[:debug]
-      end
+    case quantity
+      when 2..5
+        rows = 1
+      when 6..14
+        rows = 2 if quantity % 2 == 0
+      when 15..25
+        rows = 3 if quantity % 3 == 0
+      when 26..40
+        rows = 4 if quantity % 4 == 0
+      when 41..55
+        rows = 5 if quantity % 5 == 0
+      when 56..100
+        rows = 6 if quantity % 6 == 0
     end
 
     if rows.nil?

@@ -18,6 +18,9 @@ if Choice[:resolution]
     # make it a little bit smaller, to have the borders on display
     width  = 2559
     height = 1599
+  when 'imac'
+    width  = 2560
+    height = 1440
   end
 else
   width  = Choice[:width]
