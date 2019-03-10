@@ -21,6 +21,9 @@ if Choice[:resolution]
   when 'imac'
     width  = 2560
     height = 1440
+  when 'mbp_tb'
+    width  = 2880
+    height = 1800
   end
 else
   width  = Choice[:width]

@@ -1,25 +1,27 @@
 class Wallcollage
   def get_rnd_files(path, quantity)
-    list  = Dir[path + '/*.j*g']
-    list += Dir[path + '/*.png']
-    list.sample(quantity)
+    # jpg and png
+    tmp_list = Dir[path + '/**/*.[jJpP]*']
+    list = tmp_list.sample(quantity)
+    Magick::ImageList.new(*list)
   end
 
   def resize_images(image_list, width, height, gravity = Magick::NorthGravity)
     tmp_list = Magick::ImageList.new
+
     image_list.each do |image|
-      tmp_image = image.resize_to_fill(width, height, gravity)
-      pp tmp_image if Choice[:debug]
-      tmp_list << tmp_image
+      tmp_list << image.resize_to_fill(width, height, gravity)
     end
+
+    pp tmp_list if Choice[:debug]
     return tmp_list
   end
 
   def get_opts(quantity, multiplier, max_width, max_height)
     hash = {
-        :width => max_width / (quantity / multiplier),
-        :height => max_height / multiplier,
-        :tile => "#{quantity / multiplier}x#{multiplier}",
+        :width  => max_width   / (quantity / multiplier),
+        :height => max_height  / multiplier,
+        :tile   => "#{quantity / multiplier}x#{multiplier}",
     }
 
     puts "tile info: #{hash.to_s}" if Choice[:debug]
@@ -59,12 +61,12 @@ class Wallcollage
   end
 
   def create_collage(path, quantity, max_width, max_height, file_name)
-    opts = get_opts(quantity, eval_quantity(quantity), max_width, max_height)
-    list = Magick::ImageList.new(*get_rnd_files(path, quantity))
-    output_list = resize_images(list, opts[:width], opts[:height])
+    opts        = get_opts(quantity, eval_quantity(quantity), max_width, max_height)
+    input_list  = get_rnd_files(path, quantity)
+    output_list = resize_images(input_list, opts[:width], opts[:height])
 
     collage = output_list.montage do |mont|
-      mont.geometry = "#{opts[:width] - 2}x#{opts[:height] - 2}+1+1"
+      mont.geometry = "#{opts[:width]}x#{opts[:height]}"
       mont.tile = opts[:tile]
     end
 

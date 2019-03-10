@@ -2,7 +2,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     choice (0.2.0)
-    rmagick (2.16.0)
+    rmagick (3.0.0)
 
 PLATFORMS
   ruby
@@ -12,4 +12,4 @@ DEPENDENCIES
   rmagick
 
 BUNDLED WITH
-   1.16.2
+   2.0.1
