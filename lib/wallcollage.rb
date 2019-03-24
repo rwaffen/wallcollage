@@ -22,6 +22,7 @@ class Wallcollage
         :width  => max_width   / (quantity / multiplier),
         :height => max_height  / multiplier,
         :tile   => "#{quantity / multiplier}x#{multiplier}",
+        :border => Choice[:border],
     }
 
     puts "tile info: #{hash.to_s}" if Choice[:debug]
@@ -66,7 +67,7 @@ class Wallcollage
     output_list = resize_images(input_list, opts[:width], opts[:height])
 
     collage = output_list.montage do |mont|
-      mont.geometry = "#{opts[:width]}x#{opts[:height]}"
+      mont.geometry = "#{opts[:width]}x#{opts[:height]}+#{opts[:border]}+#{opts[:border]}"
       mont.tile = opts[:tile]
     end
 

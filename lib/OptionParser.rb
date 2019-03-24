@@ -41,6 +41,14 @@ Choice.options do
     default 1440
   end
 
+  option :border, :required => false do
+    short '-b'
+    long '--border=BORDER'
+    desc 'If there will be borders or not'
+    cast Integer
+    default 0
+  end
+
   option :resolution, :required => false do
     short '-r'
     long '--resolution=RESOLUTION'
