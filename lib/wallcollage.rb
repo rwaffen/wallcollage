@@ -1,7 +1,7 @@
 class Wallcollage
   def get_rnd_files(path, quantity)
     # jpg and png
-    tmp_list = Dir[path + '/**/*.[jJpP]*']
+    tmp_list = Dir[path + '/**{,/*/**}/*.[jJpP]*']
     list = tmp_list.sample(quantity)
     Magick::ImageList.new(*list)
   end
