@@ -7,36 +7,11 @@
 
 require_relative 'lib/Bootstrap'
 
-pp Choice.choices if Choice[:debug]
-
-if Choice[:resolution]
-  case Choice[:resolution]
-  when '4k'
-    width  = 3840
-    height = 2160
-  when 'mbp'
-    # make it a little bit smaller, to have the borders on display
-    width  = 2559
-    height = 1599
-  when 'imac'
-    width  = 2560
-    height = 1440
-  when 'mbp_tb'
-    width  = 2880
-    height = 1800
-  end
-else
-  width  = Choice[:width]
-  height = Choice[:height]
-end
-
-puts "using  width: #{width}"  if Choice[:debug]
-puts "using height: #{height}" if Choice[:debug]
-
-Wallcollage.new.create_collage(
-    Choice[:path],
-    Choice[:quantity],
-    width,
-    height,
-    Choice[:name]
+create_collage(
+  @options[:path],
+  @options[:quantity],
+  @options[:width],
+  @options[:height],
+  @options[:border],
+  @options[:debug],
 )

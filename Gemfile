@@ -1,4 +1,3 @@
-source 'https://rubygems.org'
-
-gem 'rmagick'
-gem 'choice'
+source 'https://rubygems.org' do
+  gem 'rmagick'
+end

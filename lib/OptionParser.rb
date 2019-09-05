@@ -4,66 +4,38 @@
 This code takes the options from the command line and returns an array of these options.
 =end
 
-Choice.options do
-  header ''
-  header 'Specific options:'
 
-  option :path, :required => true do
-    short '-p'
-    long '--path=PATH'
-    desc 'The path to the picture folder.'
-  end
+@options = {
+  quantity: 10,
+  width: 2560,
+  height: 1440,
+  border: 0,
+}
 
-  separator ''
-  separator 'Common options: '
+OptionParser.new do |opts|
+  opts.on("-p", "--path=PATH")             { |path|       @options[:path]       = path }
+  opts.on("-q", "--quantity=QUANTITY")     { |quantity|   @options[:quantity]   = quantity.to_i }
+  opts.on("-w", "--width=WIDTH")           { |width|      @options[:width]      = width.to_i }
+  opts.on("-h", "--height=HEIGHT")         { |height|     @options[:height]     = height.to_i }
+  opts.on("-b", "--border=BORDER")         { |border|     @options[:border]     = border.to_i }
+  opts.on("-r", "--resolution=RESOLUTION") { |resolution| @options[:resolution] = resolution }
+  opts.on("-d", "--debug")                 { |debug|      @options[:debug]      = debug }
+end.parse!
 
-  option :quantity, :required => false do
-    short '-q'
-    long '--quantity=QUANTITY'
-    desc 'The quantity of pictures to include in the collage.'
-    cast Integer
-    default 10
-  end
-
-  option :width, :required => false do
-    short '-w'
-    long '--width=WIDTH'
-    desc 'The width of the collage. Defaults to 2560.'
-    cast Integer
-    default 2560
-  end
-
-  option :height, :required => false do
-    short '-h'
-    long '--height=HEIGHT'
-    desc 'The height of the collage. Defaults to 1440.'
-    cast Integer
-    default 1440
-  end
-
-  option :border, :required => false do
-    short '-b'
-    long '--border=BORDER'
-    desc 'If there will be borders or not'
-    cast Integer
-    default 0
-  end
-
-  option :resolution, :required => false do
-    short '-r'
-    long '--resolution=RESOLUTION'
-    desc 'Preset of resolutions.'
-  end
-
-  option :name, :required => false do
-    short '-n'
-    long '--name=NAME'
-    desc 'The name and path for output file'
-  end
-
-  option :debug, :required => false do
-    short '-d'
-    long '--debug'
-    desc 'Activate to get some debug information.'
-  end
+case @options[:resolution]
+when '4k'
+  @options[:width]  = 3840
+  @options[:height] = 2160
+when 'mbp'
+  # make it a little bit smaller, to have the borders on display
+  @options[:width]  = 2559
+  @options[:height] = 1599
+when 'imac'
+  @options[:width]  = 2560
+  @options[:height] = 1440
+when 'mbp_tb'
+  @options[:width]  = 2880
+  @options[:height] = 1800
 end
+
+pp @options if @options[:debug]

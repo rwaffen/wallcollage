@@ -16,8 +16,10 @@ require_relative 'wallcollage'
 
 # ruby libs
 require 'securerandom'
+require 'optparse'
 require 'prime'
-require 'pp'
 
 # startup dependencies
 require_relative 'OptionParser'
+
+Dir.mkdir('out') unless File.exists?('out')
