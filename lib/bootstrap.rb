@@ -6,8 +6,7 @@ Loading all the dependencies. Using bundler for gems (see Gemfile).
 
 # gem dependencies
 require 'rubygems'
-require 'bundler'
-Bundler.require(:default)
+require 'rmagick'
 
 include Magick
 
@@ -22,4 +21,5 @@ require 'prime'
 # startup dependencies
 require_relative 'OptionParser'
 
+# create needed directories
 Dir.mkdir('out') unless File.exists?('out')

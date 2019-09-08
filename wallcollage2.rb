@@ -13,5 +13,6 @@ create_collage(
   @options[:width],
   @options[:height],
   @options[:border],
+  @options[:resolution],
   @options[:debug],
 )

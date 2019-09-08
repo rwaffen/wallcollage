@@ -1,6 +1,6 @@
 def get_rnd_files(path, quantity)
   # jpg and png
-  list = Dir[path + '/**{,/*/**}/*.[jJpP]*'].sample(quantity)
+  list = Dir["#{path}/**{,/*/**}/*.[jJpP]*"].sample(quantity)
   return Magick::ImageList.new(*list)
 end
 
@@ -45,13 +45,13 @@ def eval_quantity(quantity)
   end
 end
 
-def create_collage(path, quantity, max_width, max_height, border, debug)
+def create_collage(path, quantity, max_width, max_height, border, resolution = '', debug)
   multiplier  = eval_quantity quantity
   width       = max_width   / (quantity / multiplier)
   height      = max_height  / multiplier
   input_list  = get_rnd_files path, quantity
   output_list = resize_images input_list, width, height
-  file_name   = "#{quantity}_#{SecureRandom.hex}"
+  file_name   = "#{quantity}_#{resolution}_#{SecureRandom.hex}"
 
   pp output_list if debug
 
