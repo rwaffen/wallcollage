@@ -5,7 +5,7 @@
 @ruby:         2.2.3p173
 =end
 
-require_relative 'lib/Bootstrap'
+require_relative 'lib/bootstrap'
 
 create_collage(
   @options[:path],

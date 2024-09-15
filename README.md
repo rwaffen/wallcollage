@@ -14,12 +14,21 @@ Pick randomly pictures from a directory path and join them to a 2560x1440 collag
 
 ### Main installation
 
-    bundle install --path vendor/gems
+    bundle config set path 'vendor'
+    bundle config set with 'development'
+    bundle install
 
 ### if rmagic wont compile
 
     brew unlink imagemagick
     brew install imagemagick@6 && brew link imagemagick@6 --force
+
+## Arch Linux
+
+sudo pacman -S imagemagick ghostscript
+bundle config set path 'vendor'
+bundle config set with 'development'
+bundle install
 
 # Usage
 
