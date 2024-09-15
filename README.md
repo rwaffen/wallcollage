@@ -25,10 +25,10 @@ Pick randomly pictures from a directory path and join them to a 2560x1440 collag
 
 ## Arch Linux
 
-sudo pacman -S imagemagick ghostscript
-bundle config set path 'vendor'
-bundle config set with 'development'
-bundle install
+    sudo pacman -S imagemagick ghostscript
+    bundle config set path 'vendor'
+    bundle config set with 'development'
+    bundle install
 
 # Usage
 
