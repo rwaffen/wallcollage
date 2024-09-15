@@ -22,4 +22,4 @@ require 'prime'
 require_relative 'OptionParser'
 
 # create needed directories
-Dir.mkdir('out') unless File.exists?('out')
+Dir.mkdir('out') unless File.exist?('out')
